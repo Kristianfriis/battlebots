@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/jmoiron/sqlx"
-	_ "github.com/mattn/go-sqlite3"
+	_ "modernc.org/sqlite"
 )
 
 type Service struct {
@@ -16,7 +16,7 @@ func NewService() *Service {
 }
 
 var robotParts = `
-	CREATE TABLE IF NOT EXISTS kid(
+	CREATE TABLE IF NOT EXISTS robotParts(
 		id INTEGER PRIMARY KEY, 
 		name TEXT, 
 		points INTEGER, 
@@ -25,7 +25,7 @@ var robotParts = `
 `
 
 var completeRobots = `
-	CREATE TABLE IF NOT EXISTS kid(
+	CREATE TABLE IF NOT EXISTS completeRobots(
 		id INTEGER PRIMARY KEY, 
 		name TEXT, 
 		head INTEGER, 
@@ -38,7 +38,7 @@ var completeRobots = `
 `
 
 func (s *Service) GetDatabase() {
-	db, err := sqlx.Connect("sqlite3", "./battlebots.db")
+	db, err := sqlx.Connect("sqlite", "./battlebots.db")
 	if err != nil {
 		log.Fatalln("Failed to Connect: $v", err)
 	}

@@ -8,6 +8,7 @@ import (
 
 func main() {
 	repo := sqllite.NewService()
+	repo.GetDatabase()
 
 	testRobo := completeRobot.Robot{
 		Id:       1,
@@ -20,6 +21,13 @@ func main() {
 	}
 
 	success, _ := repo.CreateRobot(testRobo)
+
+	bots, err := repo.GetAllRobots()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	fmt.Print(bots)
 
 	fmt.Println(success)
 }
